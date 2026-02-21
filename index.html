@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <div class="tabs">
+                <button class="tab active" data-tab="basic">Basic</button>
+                <button class="tab" data-tab="scientific">Scientific</button>
+                <button class="tab" data-tab="solver">Solver</button>
+                <button class="tab" data-tab="graph">Graph</button>
+                <button class="tab" data-tab="currency">Currency</button>
+            </div>
+
+            <!-- Display -->
+            <div class="display">
+                <div class="history-panel" id="history-panel"></div>
+                <div class="expression" id="expression"></div>
+                <div class="result" id="result">0</div>
+            </div>
+
+            <!-- Basic Calculator -->
+            <div class="calc-content active" id="basic">
+                <div class="buttons">
+                    <button class="btn function" onclick="clearAll()">AC</button>
+                    <button class="btn function" onclick="deleteLast()">DEL</button>
+                    <button class="btn function" onclick="appendOperator('%')">%</button>
+                    <button class="btn operator" onclick="appendOperator('/')">÷</button>
+                    
+                    <button class="btn" onclick="appendNumber('7')">7</button>
+                    <button class="btn" onclick="appendNumber('8')">8</button>
+                    <button class="btn" onclick="appendNumber('9')">9</button>
+                    <button class="btn operator" onclick="appendOperator('*')">×</button>
+                    
+                    <button class="btn" onclick="appendNumber('4')">4</button>
+                    <button class="btn" onclick="appendNumber('5')">5</button>
+                    <button class="btn" onclick="appendNumber('6')">6</button>
+                    <button class="btn operator" onclick="appendOperator('-')">−</button>
+                    
+                    <button class="btn" onclick="appendNumber('1')">1</button>
+                    <button class="btn" onclick="appendNumber('2')">2</button>
+                    <button class="btn" onclick="appendNumber('3')">3</button>
+                    <button class="btn operator" onclick="appendOperator('+')">+</button>
+                    
+                    <button class="btn" onclick="appendNumber('0')">0</button>
+                    <button class="btn" onclick="appendNumber('.')">.</button>
+                    <button class="btn function" onclick="appendOperator('^')">^</button>
+                    <button class="btn equals" onclick="calculate()">=</button>
+                </div>
+            </div>
+
+            <!-- Scientific Calculator -->
+            <div class="calc-content" id="scientific">
+                <div class="buttons scientific-grid">
+                    <button class="btn function" onclick="clearAll()">AC</button>
+                    <button class="btn function" onclick="deleteLast()">DEL</button>
+                    <button class="btn function" onclick="appendFunction('Math.PI')">π</button>
+                    <button class="btn function" onclick="appendFunction('Math.E')">e</button>
+                    
+                    <button class="btn function" onclick="appendFunction('sin(')">sin</button>
+                    <button class="btn function" onclick="appendFunction('cos(')">cos</button>
+                    <button class="btn function" onclick="appendFunction('tan(')">tan</button>
+                    <button class="btn operator" onclick="appendOperator('/')">÷</button>
+                    
+                    <button class="btn function" onclick="appendFunction('asin(')">asin</button>
+                    <button class="btn function" onclick="appendFunction('acos(')">acos</button>
+                    <button class="btn function" onclick="appendFunction('atan(')">atan</button>
+                    <button class="btn operator" onclick="appendOperator('*')">×</button>
+                    
+                    <button class="btn function" onclick="appendFunction('log(')">log</button>
+                    <button class="btn function" onclick="appendFunction('ln(')">ln</button>
+                    <button class="btn function" onclick="appendFunction('sqrt(')">√</button>
+                    <button class="btn operator" onclick="appendOperator('-')">−</button>
+                    
+                    <button class="btn" onclick="appendNumber('7')">7</button>
+                    <button class="btn" onclick="appendNumber('8')">8</button>
+                    <button class="btn" onclick="appendNumber('9')">9</button>
+                    <button class="btn operator" onclick="appendOperator('+')">+</button>
+                    
+                    <button class="btn" onclick="appendNumber('4')">4</button>
+                    <button class="btn" onclick="appendNumber('5')">5</button>
+                    <button class="btn" onclick="appendNumber('6')">6</button>
+                    <button class="btn function" onclick="appendOperator('^')">^</button>
+                    
+                    <button class="btn" onclick="appendNumber('1')">1</button>
+                    <button class="btn" onclick="appendNumber('2')">2</button>
+                    <button class="btn" onclick="appendNumber('3')">3</button>
+                    <button class="btn function" onclick="appendFunction('('))">(</button>
+                    
+                    <button class="btn" onclick="appendNumber('0')">0</button>
+                    <button class="btn" onclick="appendNumber('.')">.</button>
+                    <button class="btn function" onclick="appendFunction(')')">)</button>
+                    <button class="btn equals" onclick="calculate()">=</button>
+                </div>
+            </div>
+
+            <!-- Equation Solver -->
+            <div class="calc-content" id="solver">
+                <div class="solver-container">
+                    <h3>Solve for x</h3>
+                    <div class="input-group">
+                        <label>Enter equation (e.g., 2*x + 5 = 15):</label>
+                        <input type="text" id="equation-input" placeholder="2*x + 5 = 15">
+                    </div>
+                    <button class="btn equals solve-btn" onclick="solveEquation()">Solve</button>
+                    <div class="solution" id="solution"></div>
+                    <div class="steps" id="steps"></div>
+                </div>
+            </div>
+
+            <!-- Graph -->
+            <div class="calc-content" id="graph">
+                <div class="graph-container">
+                    <h3>Function Plotter</h3>
+                    <div class="input-group">
+                        <label>Enter function (e.g., x^2, sin(x), 2*x+1):</label>
+                        <input type="text" id="function-input" placeholder="x^2">
+                    </div>
+                    <div class="graph-controls">
+                        <div class="control-group">
+                            <label>X min:</label>
+                            <input type="number" id="x-min" value="-10">
+                        </div>
+                        <div class="control-group">
+                            <label>X max:</label>
+                            <input type="number" id="x-max" value="10">
+                        </div>
+                        <button class="btn equals" onclick="plotGraph()">Plot</button>
+                    </div>
+                    <canvas id="graph-canvas" width="600" height="400"></canvas>
+                </div>
+            </div>
+
+            <!-- Currency Converter -->
+            <div class="calc-content" id="currency">
+                <div class="currency-container">
+                    <h3>Currency Converter</h3>
+                    <div class="currency-group">
+                        <div class="currency-input">
+                            <label>Amount:</label>
+                            <input type="number" id="amount" value="1" oninput="convertCurrency()">
+                        </div>
+                        <div class="currency-select">
+                            <label>From:</label>
+                            <select id="from-currency" onchange="convertCurrency()">
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="GBP">GBP - British Pound</option>
+                                <option value="JPY">JPY - Japanese Yen</option>
+                                <option value="INR">INR - Indian Rupee</option>
+                                <option value="AUD">AUD - Australian Dollar</option>
+                                <option value="CAD">CAD - Canadian Dollar</option>
+                                <option value="CHF">CHF - Swiss Franc</option>
+                                <option value="CNY">CNY - Chinese Yuan</option>
+                                <option value="KRW">KRW - South Korean Won</option>
+                            </select>
+                        </div>
+                        <div class="currency-select">
+                            <label>To:</label>
+                            <select id="to-currency" onchange="convertCurrency()">
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="EUR" selected>EUR - Euro</option>
+                                <option value="GBP">GBP - British Pound</option>
+                                <option value="JPY">JPY - Japanese Yen</option>
+                                <option value="INR">INR - Indian Rupee</option>
+                                <option value="AUD">AUD - Australian Dollar</option>
+                                <option value="CAD">CAD - Canadian Dollar</option>
+                                <option value="CHF">CHF - Swiss Franc</option>
+                                <option value="CNY">CNY - Chinese Yuan</option>
+                                <option value="KRW">KRW - South Korean Won</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="conversion-result" id="conversion-result">
+                        <div class="converted-amount">0.00</div>
+                    </div>
+                    <div class="exchange-rate" id="exchange-rate"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
