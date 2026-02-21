@@ -278,5 +278,3 @@ This project is open source and available for educational and personal use.
 ---
 
 **Note**: This calculator application is designed for general educational and personal use. Critical calculations should be verified with specialized mathematical software.
-#   C a l c u l a t o r  
- 
